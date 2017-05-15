@@ -1,5 +1,6 @@
 package proto.com.bills.base;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,6 +15,8 @@ import proto.com.bills.interfaces.OnConfirmDialogListener;
  */
 
 public class BaseActivity extends AppCompatActivity {
+
+    private static ProgressDialog progressDialog;
 
     public void setError(final TextView textView, final String message) {
         textView.setError(message);
@@ -67,4 +70,25 @@ public class BaseActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    public void showProgressDialog(final String header, final String message) {
+        progressDialog = null;
+        progressDialog = new ProgressDialog(this);
+
+        if (header != null && !header.isEmpty()) {
+            progressDialog.setTitle(header);
+        }
+
+        if (message != null && !message.isEmpty()) {
+            progressDialog.setMessage(message);
+        }
+
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    public void dismissProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
 }
