@@ -16,4 +16,20 @@
     <string name="enter_display_name">Enter your display name</string>
     <string name="create_my_account">Create my account</string>
 
+
+    <!-- navigation drawer -->
+    <string name="open_drawer">Open</string>
+    <string name="close_drawer">Close</string>
+    <string name="welcome">Welcome!</string>
+
+    <!-- side drawer menu -->
+    <string name="side_drawer_menu_change_password">Change Password</string>
+    <string name="side_drawer_menu_logout">Log Out</string>
+
+    <!-- create group dialog fragment -->
+    <string name="create_group_header">Add new group</string>
+    <string name="group_name">Group name</string>
+    <string name="group_description">Group description (Optional)</string>
+    <string name="create_group">Create Group</string>
+
 </resources>

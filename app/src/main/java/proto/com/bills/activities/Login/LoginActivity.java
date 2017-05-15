@@ -1,13 +1,10 @@
 package proto.com.bills.activities.Login;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.widget.EditText;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -17,6 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import proto.com.bills.R;
+import proto.com.bills.activities.MainActivity;
 import proto.com.bills.base.BaseActivity;
 import proto.com.bills.fragments.RegistrationDialogFragment;
 import proto.com.bills.utils.Constants;
@@ -43,6 +41,12 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         firebaseAuth = FirebaseAuth.getInstance();
         unbinder = ButterKnife.bind(this);
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            startActivity(new Intent(this, MainActivity.class));
+            animateToLeft();
+            finish();
+        }
     }
 
     @OnClick(R.id.btn_login)
@@ -56,23 +60,21 @@ public class LoginActivity extends BaseActivity {
             setError(et_password, Constants.WARN_FIELD_REQUIRED);
         } else {
             if (isNetworkAvailable()) {
-                if (firebaseAuth.getCurrentUser() == null) {
-                    showProgressDialog("Login", "Verifying your credentials, Please wait...");
-                    firebaseAuth.signInWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    dismissProgressDialog();
-                                    LogHelper.log("reg", "login successful!");
-                                } else {
-                                    dismissProgressDialog();
-                                    if (task.getException() != null) {
-                                        showConfirmDialog(null, "Login Failed", task.getException().getMessage(), "Close", null, null, false);
-                                    }
+                showProgressDialog("Login", "Verifying your credentials, Please wait...");
+                firebaseAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                dismissProgressDialog();
+                                startActivity(new Intent(this, MainActivity.class));
+                                animateToLeft();
+                                finish();
+                            } else {
+                                dismissProgressDialog();
+                                if (task.getException() != null) {
+                                    showConfirmDialog(null, "Login Failed", task.getException().getMessage(), "Close", null, null, false);
                                 }
-                            });
-                } else {
-                    LogHelper.log("reg", "with current user --> " + firebaseAuth.getCurrentUser().getEmail());
-                }
+                            }
+                        });
             } else {
                 showConfirmDialog(null, "Connection Error", Constants.WARN_CONNECTION, "Close", null, null, true);
             }

@@ -2,12 +2,15 @@ package proto.com.bills.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 import android.widget.TextView;
 
+import proto.com.bills.R;
 import proto.com.bills.interfaces.OnConfirmDialogListener;
 
 /**
@@ -90,5 +93,20 @@ public class BaseActivity extends AppCompatActivity {
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
+    }
+
+    public int getScreenDimension(final String what) {
+        final Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return what.equals("height") ? size.y : size.x;
+    }
+
+    public void animateToLeft() {
+        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+    }
+
+    public void animateToRight() {
+        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
     }
 }

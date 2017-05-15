@@ -46,12 +46,21 @@ dependencies {
         exclude module: 'support-v4'
         exclude module: 'support-annotations'
     }
+    compile ("com.google.firebase:firebase-database:10.2.4") {
+        exclude module: 'play-services-base'
+        exclude module: 'support-v4'
+        exclude module: 'support-annotations'
+    }
     apt("com.jakewharton:butterknife-compiler:8.4.0") {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.google.firebase:firebase-core:10.2.4'
     compile 'com.google.android.gms:play-services-auth:10.2.4'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    provided 'org.projectlombok:lombok:1.12.6'
+    apt 'org.projectlombok:lombok:1.12.6'
 }
 
 apply plugin: 'com.google.gms.google-services'
