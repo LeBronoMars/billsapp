@@ -9,4 +9,11 @@
     <string name="login_via_fb">Login via facebook</string>
     <string name="login_via_gmail">Login via gmail</string>
 
+    <!-- registration dialog fragment -->
+    <string name="registration">Registration</string>
+    <string name="enter_email">Enter your email</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="enter_display_name">Enter your display name</string>
+    <string name="create_my_account">Create my account</string>
+
 </resources>
